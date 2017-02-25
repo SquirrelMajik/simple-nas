@@ -1,0 +1,32 @@
+version: "2"
+services:
+  samba:
+    image: "dperson/samba"
+    ports:
+     - "139:139"
+     - "445:445"
+    volumes:
+     - "./nas:/samba"
+    command: ["-s", "Nas;/samba;no;no;no;majik;none",
+              "-u", "majik;majik",
+              "-p"]
+    restart: "always"
+
+  aria2:
+    image: "vimagick/aria2"
+    ports:
+     - "6800:6800"
+    volumes:
+     - "./aria2/aria2.conf:/etc/aria2/aria2.conf"
+     - "./nas/Downloads:/home/aria2"
+    command: sh -c "set -xe && chown -R aria2:aria2 /home/aria2 && gosu aria2 aria2c --conf-path=/etc/aria2/aria2.conf"
+    restart: "always"
+
+  ariaNG:
+    image: "nginx"
+    ports:
+     - "80:80"
+    volumes:
+     - "./ariaNG:/usr/share/nginx/html"
+    restart: "always"
+
