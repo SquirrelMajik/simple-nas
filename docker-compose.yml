@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
   samba:
     image: "dperson/samba"
@@ -6,11 +6,23 @@ services:
      - "139:139"
      - "445:445"
     volumes:
-     - "./nas:/samba"
-    command: ["-s", "Nas;/samba;no;no;no;majik;none",
-              "-u", "majik;majik",
-              "-p"]
+     - "nas:/samba"
+     - "downloads:/samba/Downloads"
+    command: ["-s", "Nas;/samba;no;no;yes;",
+              "-u", "majik;majik"]
     restart: "always"
+
+#   ftpd:
+#     image: "stilliard/pure-ftpd:hardened"
+#     ports:
+#      - "21:21"
+#      - "30000-30009:30000-30009"
+#     environment:
+#       PUBLICHOST: "192.168.199.114"
+#     volumes:
+#       - nas:/home/ftpusers/majik
+#       - downloads:/home/ftpusers/majik/Downloads
+#     restart: "always"
 
   aria2:
     image: "vimagick/aria2"
@@ -18,7 +30,7 @@ services:
      - "6800:6800"
     volumes:
      - "./aria2/aria2.conf:/etc/aria2/aria2.conf"
-     - "./nas/Downloads:/home/aria2"
+     - "downloads:/home/aria2"
     command: sh -c "set -xe && chown -R aria2:aria2 /home/aria2 && gosu aria2 aria2c --conf-path=/etc/aria2/aria2.conf"
     restart: "always"
 
@@ -29,4 +41,7 @@ services:
     volumes:
      - "./ariaNG:/usr/share/nginx/html"
     restart: "always"
+volumes:
+  nas:
+  downloads:
 

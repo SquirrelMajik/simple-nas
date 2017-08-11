@@ -1,17 +1,6 @@
 #! /bin/bash
 
-mkdir -p nas
-mkdir -p nas/Animes
-mkdir -p nas/Code
-mkdir -p nas/Documents
-mkdir -p nas/Downloads
-mkdir -p nas/Movies
-mkdir -p nas/Music
-mkdir -p nas/Pictures
-mkdir -p nas/Series
-mkdir -p nas/Utils
-
-sudo chmod 777 nas nas/*
-
 sudo docker-compose up -d
+# sudo docker-compose exec ftpd pure-pw useradd majik -f /etc/pure-ftpd/passwd/pureftpd.passwd -m -u ftpuser -d /home/ftpusers/majik
+sudo docker-compose exec samba chmod 777 /samba
 
