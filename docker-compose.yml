@@ -8,6 +8,8 @@ services:
     volumes:
      - "nas:/samba"
      - "downloads:/samba/Downloads"
+    environment:
+     - USERID=1000
     command: ["-s", "Nas;/samba;no;no;yes;",
               "-u", "majik;majik"]
     restart: "always"
