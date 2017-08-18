@@ -1,0 +1,3 @@
+[submodule "sync-docker"]
+	path = sync-docker
+	url = https://github.com/SquirrelMajik/sync-docker.git
