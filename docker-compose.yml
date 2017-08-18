@@ -43,7 +43,15 @@ services:
     volumes:
      - "./ariaNG:/usr/share/nginx/html"
     restart: "always"
+
+  resilioSync:
+    image: "resilio/sync"
+    ports:
+     - "8888:8888"
+     - "55555:55555"
+    volumes:
+     - "nas:/mnt/sync"
+    restart: "always"
 volumes:
   nas:
   downloads:
-
