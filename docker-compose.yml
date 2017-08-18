@@ -50,7 +50,7 @@ services:
      - "8888:8888"
      - "55555:55555"
     volumes:
-     - "nas:/mnt/sync"
+     - "nas:/mnt/sync/folders"
     restart: "always"
 volumes:
   nas:
