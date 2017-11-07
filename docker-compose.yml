@@ -32,7 +32,7 @@ services:
     ports:
      - "6800:6800"
     volumes:
-     - "./aria2/aria2.conf:/etc/aria2/aria2.conf"
+     - "./aria2:/etc/aria2"
      - "downloads:/home/aria2"
     command: sh -c "set -xe && chown -R aria2:aria2 /home/aria2 && gosu aria2 aria2c --conf-path=/etc/aria2/aria2.conf"
     restart: "always"
