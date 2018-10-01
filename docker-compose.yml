@@ -48,6 +48,6 @@ services:
     #  - PASSWORD=majik
     restart: "always"
 
-# volumes:
-#   nas:
-#   downloads:
+volumes:
+  nas:
+  downloads:
