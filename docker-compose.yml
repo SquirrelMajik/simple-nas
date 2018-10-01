@@ -1,40 +1,39 @@
 version: "3"
 services:
-  # samba:
-  #   image: "dperson/samba"
-  #   ports:
-  #    - "139:139"
-  #    - "445:445"
-  #   volumes:
-  #    - "nas:/samba"
-  #    - "downloads:/samba/Downloads"
-  #   environment:
-  #    - USERID=1000
-  #    - GROUPID=1000
-  #   command: ["-s", "Nas;/samba;no;no;yes;",
-  #             "-u", "majik;majik"]
-  #   restart: "always"
+  samba:
+    image: "dperson/samba"
+    ports:
+     - "139:139"
+     - "445:445"
+    volumes:
+     - "nas:/samba"
+     - "downloads:/samba/Downloads"
+    environment:
+     - USERID=1000
+     - GROUPID=1000
+    command: ["-s", "Nas;/samba;no;no;yes;",
+              "-u", "majik;majik"]
+    restart: "always"
 
-#   ftpd:
-#     image: "stilliard/pure-ftpd:hardened"
-#     ports:
-#      - "21:21"
-#      - "30000-30009:30000-30009"
-#     environment:
-#       PUBLICHOST: "192.168.199.114"
-#     volumes:
-#       - nas:/home/ftpusers/majik
-#       - downloads:/home/ftpusers/majik/Downloads
-#     restart: "always"
+  ftpd:
+    image: "stilliard/pure-ftpd:hardened"
+    ports:
+     - "21:21"
+     - "30000-30009:30000-30009"
+    environment:
+      PUBLICHOST: "192.168.199.114"
+    volumes:
+      - nas:/home/ftpusers/majik
+      - downloads:/home/ftpusers/majik/Downloads
+    restart: "always"
 
   aria2:
     image: "vimagick/aria2"
     ports:
      - "6800:6800"
     volumes:
-     - "./aria2:/etc/aria2"
+     - "./aria2/aria2.conf:/etc/aria2/aria2.conf"
      - "downloads:/home/aria2"
-    command: sh -c "set -xe && chown -R aria2:aria2 /home/aria2 && gosu aria2 aria2c --conf-path=/etc/aria2/aria2.conf"
     restart: "always"
 
   webdav:
