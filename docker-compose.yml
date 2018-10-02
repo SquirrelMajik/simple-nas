@@ -41,11 +41,11 @@ services:
     ports:
      - "80:80"
     volumes:
-     - "/Users/majik/webdav:/webdav"
-     - "/Users/majik/webdav/Downloads:/webdav/Downloads"
-    # environment:
-    #  - USERNAME=majik
-    #  - PASSWORD=majik
+     - "nas:/webdav"
+     - "downloads:/webdav/Downloads"
+    environment:
+     - USERNAME=majik
+     - PASSWORD=majik
     restart: "always"
 
 volumes:
