@@ -3,51 +3,24 @@ services:
   samba:
     image: "dperson/samba"
     ports:
-     - "139:139"
-     - "445:445"
+      - "139:139"
+      - "445:445"
     volumes:
-     - "nas:/samba"
-     - "downloads:/samba/Downloads"
+      - "nas:/samba/nas"
     environment:
-     - USERID=1000
-     - GROUPID=1000
-    command: ["-s", "Nas;/samba;no;no;yes;",
-              "-u", "majik;majik"]
-    restart: "always"
-
-  ftpd:
-    image: "stilliard/pure-ftpd:hardened"
-    ports:
-     - "21:21"
-     - "30000-30009:30000-30009"
-    environment:
-      PUBLICHOST: "192.168.199.114"
-    volumes:
-      - nas:/home/ftpusers/majik
-      - downloads:/home/ftpusers/majik/Downloads
+      - USERID=1000
+      - GROUPID=1000
+    command: ["-s", "Nas;/samba/nas;no;no;yes;", "-u", "majik;majik"]
     restart: "always"
 
   aria2:
     image: "vimagick/aria2"
     ports:
-     - "6800:6800"
+      - "6800:6800"
     volumes:
-     - "./aria2/aria2.conf:/etc/aria2/aria2.conf"
-     - "downloads:/home/aria2"
-    restart: "always"
-
-  webdav:
-    image: "idelsink/webdav"
-    ports:
-     - "80:80"
-    volumes:
-     - "nas:/webdav"
-     - "downloads:/webdav/Downloads"
-    environment:
-     - USERNAME=majik
-     - PASSWORD=majik
+      - "./aria2/aria2.conf:/etc/aria2/aria2.conf"
+      - "nas:/home/aria2"
     restart: "always"
 
 volumes:
-  nas:
-  downloads:
+  ? nas
